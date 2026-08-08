@@ -137,6 +137,21 @@ MEDIA = [
     {"name":"Frankfurter Rundschau", "domain":"fr.de", "profile":"linksliberal", "profile_note":"Traditionell linksliberale Zeitung; heute innerhalb der FAZ-Verlagsgruppe. Ausrichtung ohne Korpus nur grob.",
      "evidence":[
         {"art":"Eigentümer/Herkunft","beleg":"Die Frankfurter Rundschau gilt traditionell als linksliberale überregionale Zeitung; nach der Insolvenz 2012/13 wird sie innerhalb der Verlagsgruppe der Frankfurter Allgemeinen herausgegeben.","quelle":"Media Ownership Monitor Germany","url":_MOM_URL}]},
+    {"name":"HR", "domain":"hessenschau.de", "profile":"öffentlich-rechtlich; regional", "profile_note":"ARD-Landesrundfunkanstalt Hessen; Auftrag zu Ausgewogenheit. Richtungsbefund nur aus Korpus.",
+     "evidence":[
+        {"art":"Rechtsrahmen/Trägerschaft","beleg":"Der Hessische Rundfunk ist eine öffentlich-rechtliche ARD-Landesrundfunkanstalt (hessenschau.de), dem Auftrag zu Vielfalt, Ausgewogenheit und Staatsferne verpflichtet.","quelle":_MSTV,"url":_MSTV_URL}]},
+    {"name":"SR", "domain":"sr.de", "profile":"öffentlich-rechtlich; regional", "profile_note":"Kleine ARD-Landesrundfunkanstalt (Saarland); Korpus überwiegend Beitragsbeschreibungen (Metadaten).",
+     "evidence":[
+        {"art":"Rechtsrahmen/Trägerschaft","beleg":"Der Saarländische Rundfunk ist eine öffentlich-rechtliche ARD-Landesrundfunkanstalt (sr.de/sr-mediathek.de) mit Auftrag zu Ausgewogenheit und Staatsferne.","quelle":_MSTV,"url":_MSTV_URL}]},
+    {"name":"Radio Bremen", "domain":"butenunbinnen.de", "profile":"öffentlich-rechtlich; regional", "profile_note":"Kleinste ARD-Anstalt neben SR; Landesberichterstattung Bremen. Richtungsbefund nur aus Korpus.",
+     "evidence":[
+        {"art":"Rechtsrahmen/Trägerschaft","beleg":"Radio Bremen ist eine öffentlich-rechtliche ARD-Landesrundfunkanstalt (butenunbinnen.de) mit Auftrag zu Vielfalt und Ausgewogenheit.","quelle":_MSTV,"url":_MSTV_URL}]},
+    {"name":"phoenix", "domain":"phoenix.de", "profile":"öffentlich-rechtlich; Ereignis/Doku", "profile_note":"Gemeinschaftssender von ARD und ZDF; Ereignis-, Dokumentations- und Gesprächsprogramm mit viel O-Ton/Statement.",
+     "evidence":[
+        {"art":"Rechtsrahmen/Trägerschaft","beleg":"phoenix ist der Ereignis- und Dokumentationskanal von ARD und ZDF; öffentlich-rechtlicher Auftrag zu Ausgewogenheit und Meinungsvielfalt.","quelle":_MSTV,"url":_MSTV_URL}]},
+    {"name":"ARTE", "domain":"arte.tv", "profile":"öffentlich-rechtlich; deutsch-französisch/europäisch", "profile_note":"Europäischer Kulturkanal (ARD/ZDF-Beteiligung); Migrationsthemen oft europäisch/humanitär gerahmt.",
+     "evidence":[
+        {"art":"Rechtsrahmen/Trägerschaft","beleg":"ARTE ist ein europäischer öffentlich-rechtlicher Kultursender mit deutscher (ARD/ZDF) und französischer Trägerschaft; deutschsprachiges Angebot arte.tv/de.","quelle":_MSTV,"url":_MSTV_URL}]},
 ]
 
 ARTICLES = [

@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .seed_data import ARTICLES, CLAIMS, FACTS, MEDIA, OMISSION_EXAMPLES
 from .research_data import CODINGS, COVERAGE_EVENTS
+from .research_data_extra import EXTRA_CODINGS
 from .reach_data import REACH_RANKING
 
 
@@ -151,7 +152,7 @@ def initialize() -> None:
             omission_risk=excluded.omission_risk,
             factual_confidence=excluded.factual_confidence,
             access_level=excluded.access_level,evidence_note=excluded.evidence_note""",
-            CODINGS,
+            CODINGS + EXTRA_CODINGS,
         )
         db.executemany(
             """INSERT INTO coverage_events
