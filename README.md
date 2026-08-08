@@ -31,7 +31,9 @@ Der systematische Durchgang aller ÖRR-Anbieter auf politische Schlagseite bei
 Migrationsthemen – mit Genre-Trennung und Einordnung gegenüber den privaten
 Polen – ist in
 [reports/oerr-schlagseite-2026-08-08.md](reports/oerr-schlagseite-2026-08-08.md)
-dokumentiert.
+dokumentiert. Der Abgleich dieser ÖRR-Rahmung mit der Bevölkerungshaltung laut
+repräsentativen Umfragen 2025 steht in
+[reports/oerr-vs-bevoelkerung-2026-08-08.md](reports/oerr-vs-bevoelkerung-2026-08-08.md).
 Der Abgleich mit der lokalen amtlichen Datenablage `../gov-data` ist in
 [reports/gov-data-abgleich-2026-08-08.md](reports/gov-data-abgleich-2026-08-08.md)
 mit Nennern, Deliktbereinigung und Quellenkritik festgehalten.

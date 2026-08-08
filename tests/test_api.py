@@ -47,6 +47,14 @@ def test_oerr_schlagseite_report_is_available():
     assert "moderat" in response.text
 
 
+def test_oerr_bevoelkerung_report_is_available():
+    response = client.get("/berichte/oerr-vs-bevoelkerung")
+    assert response.status_code == 200
+    assert "Bevölkerungshaltung" in response.text
+    assert "DeutschlandTrend" in response.text
+    assert "Politbarometer" in response.text
+
+
 def test_research_api_has_complete_dossier_shape():
     response = client.get("/api/research")
     assert response.status_code == 200
