@@ -59,7 +59,7 @@ def test_research_api_has_complete_dossier_shape():
     response = client.get("/api/research")
     assert response.status_code == 200
     data = response.json()
-    assert set(data) == {"media", "articles", "claims", "facts", "omission_examples", "article_codings", "coverage_events", "reach_ranking", "sample_progress", "media_summary", "reliability"}
+    assert set(data) == {"media", "articles", "claims", "facts", "omission_examples", "article_codings", "coverage_events", "reach_ranking", "sample_progress", "media_summary", "goal_progress", "reliability"}
     rels = {r["medium"]: r for r in data["reliability"]}
     assert {"t-online", "ZDF"} <= set(rels)
     ton = rels["t-online"]
@@ -111,6 +111,24 @@ def test_research_api_has_complete_dossier_shape():
     assert tagesspiegel["mature"] is True
     assert tagesspiegel["editorial_fulltexts"] == 20
     assert tagesspiegel["topic_count"] >= 5
+
+
+def test_goal_endpoint_tracks_top30_and_all_oerr():
+    response = client.get("/api/goal")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["target_articles"] == 25
+    assert data["top30_total"] == 30
+    assert len({row["rank"] for row in data["top30"]}) == 30
+    assert data["oerr_total"] == 15
+    oerr_names = {row["medium"] for row in data["oerr_online"]}
+    assert {"HR", "SR", "Radio Bremen", "phoenix", "3sat", "ARTE"} <= oerr_names
+    for row in data["top30"]:
+        assert row["met"] == (row["analyzed"] >= 25)
+        assert row["remaining"] == max(0, 25 - row["analyzed"])
+    assert data["goal_complete"] == (
+        all(r["met"] for r in data["top30"]) and all(r["met"] for r in data["oerr_online"])
+    )
 
 
 def test_research_csv_exports_article_level_codings():

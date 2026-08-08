@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field
 
 from .analyzer import analyze_local
 from .db import initialize, rows
+from .goal_config import OERR_ONLINE, TARGET_ARTICLES, TOP30
 from .llm import analyze_with_model
 from .reliability_data import CODER2_BY_MEDIUM, CODER2_LABEL, CODER2_SCALE
 
@@ -153,6 +154,56 @@ def media_summary(media: list[dict], codings: list[dict]) -> list[dict]:
     return sorted(result, key=lambda row: (row["mature"], row["medium"]))
 
 
+def goal_progress(codings: list[dict]) -> dict:
+    """Auditierbarer Stand gegenüber dem Forschungsziel.
+
+    Gezählt wird jeder nach Migrationshaltung analysierte Artikel eines Mediums
+    (``analyzed`` = alle Kodierungen). Zusätzlich wird ``editorial_fulltexts``
+    ausgewiesen, weil ein Richtungsbefund laut METHODE.md nur auf redaktionellen
+    Volltexten beruht. Ein Medium gilt für das Ziel als erfüllt, sobald es die
+    jeweilige Zielzahl analysierter Artikel erreicht.
+    """
+    def counts(name: str) -> tuple[int, int]:
+        rows_for = [row for row in codings if row["medium"] == name]
+        fulltexts = [row for row in rows_for
+                     if "agentur" not in row["genre"].lower()
+                     and row["access_level"].lower() == "volltext"]
+        return len(rows_for), len(fulltexts)
+
+    top30 = []
+    for outlet in TOP30:
+        analyzed, fulltexts = counts(outlet["name"])
+        top30.append({
+            "rank": outlet["rank"], "medium": outlet["name"], "brand": outlet["brand"],
+            "kind": outlet["kind"], "analyzed": analyzed, "editorial_fulltexts": fulltexts,
+            "target": TARGET_ARTICLES, "remaining": max(0, TARGET_ARTICLES - analyzed),
+            "met": analyzed >= TARGET_ARTICLES,
+        })
+
+    oerr = []
+    for outlet in OERR_ONLINE:
+        analyzed, fulltexts = counts(outlet["name"])
+        target = outlet["min_articles"]
+        oerr.append({
+            "medium": outlet["name"], "brand": outlet["brand"], "analyzed": analyzed,
+            "editorial_fulltexts": fulltexts, "target": target,
+            "remaining": max(0, target - analyzed),
+            "covered": analyzed > 0, "met": analyzed >= target,
+        })
+
+    return {
+        "target_articles": TARGET_ARTICLES,
+        "top30": top30,
+        "top30_met": sum(1 for row in top30 if row["met"]),
+        "top30_total": len(top30),
+        "oerr_online": oerr,
+        "oerr_covered": sum(1 for row in oerr if row["covered"]),
+        "oerr_met": sum(1 for row in oerr if row["met"]),
+        "oerr_total": len(oerr),
+        "goal_complete": all(row["met"] for row in top30) and all(row["met"] for row in oerr),
+    }
+
+
 class AnalysisRequest(BaseModel):
     text: str = Field(min_length=80, max_length=100_000)
     deep: bool = False
@@ -259,7 +310,14 @@ def research() -> dict:
             "reach_ranking": rows("reach_ranking"),
             "sample_progress": sample_progress(media, codings),
             "media_summary": media_summary(media, codings),
+            "goal_progress": goal_progress(codings),
             "reliability": reliability_report(codings)}
+
+
+@app.get("/api/goal")
+def goal() -> dict:
+    """Fortschritt gegenüber dem Ziel: Top-30-Medien à ≥25 Artikel + alle ÖRR."""
+    return goal_progress(rows("article_codings"))
 
 
 @app.get("/api/research.csv")
