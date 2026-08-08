@@ -95,6 +95,7 @@ MEDIA_SAMPLE_REPORT = Path(__file__).parent.parent.joinpath("reports", "medienwe
 GOV_DATA_REPORT = Path(__file__).parent.parent.joinpath("reports", "gov-data-abgleich-2026-08-08.md")
 OERR_SCHLAGSEITE_REPORT = Path(__file__).parent.parent.joinpath("reports", "oerr-schlagseite-2026-08-08.md")
 OERR_BEVOELKERUNG_REPORT = Path(__file__).parent.parent.joinpath("reports", "oerr-vs-bevoelkerung-2026-08-08.md")
+OERR_BEITRAGSZAHLER_REPORT = Path(__file__).parent.parent.joinpath("reports", "oerr-beitragszahler-abgleich-2026-08-08.md")
 initialize()
 
 SAMPLE_TARGET_FULLTEXTS = 20
@@ -266,6 +267,20 @@ def oerr_schlagseite_report() -> HTMLResponse:
         f"""<!doctype html><html lang=\"de\"><meta charset=\"utf-8\">
         <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">
         <title>ÖRR-Schlagseite bei Migrationsthemen</title>
+        <style>body{{max-width:920px;margin:2rem auto;padding:0 1rem;font:17px/1.6 system-ui;color:#18211b;background:#f5f3ec}}
+        pre{{white-space:pre-wrap;font:inherit;background:white;padding:1.5rem;border-radius:12px}}a{{color:#075c45}}</style>
+        <p><a href=\"/\">← Dashboard</a></p><pre>{report}</pre></html>""",
+        headers={"Cache-Control": "no-store, max-age=0"},
+    )
+
+
+@app.get("/berichte/oerr-beitragszahler", response_class=HTMLResponse)
+def oerr_beitragszahler_report() -> HTMLResponse:
+    report = escape(OERR_BEITRAGSZAHLER_REPORT.read_text(encoding="utf-8"))
+    return HTMLResponse(
+        f"""<!doctype html><html lang=\"de\"><meta charset=\"utf-8\">
+        <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">
+        <title>ÖRR-Framing vs. Beitragszahler</title>
         <style>body{{max-width:920px;margin:2rem auto;padding:0 1rem;font:17px/1.6 system-ui;color:#18211b;background:#f5f3ec}}
         pre{{white-space:pre-wrap;font:inherit;background:white;padding:1.5rem;border-radius:12px}}a{{color:#075c45}}</style>
         <p><a href=\"/\">← Dashboard</a></p><pre>{report}</pre></html>""",

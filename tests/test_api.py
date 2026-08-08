@@ -55,6 +55,14 @@ def test_oerr_bevoelkerung_report_is_available():
     assert "Politbarometer" in response.text
 
 
+def test_oerr_beitragszahler_report_is_available():
+    response = client.get("/berichte/oerr-beitragszahler")
+    assert response.status_code == 200
+    assert "Beitragszahler" in response.text
+    assert "Rundfunkbeitrag" in response.text
+    assert "Ausgewogenheit" in response.text
+
+
 def test_research_api_has_complete_dossier_shape():
     response = client.get("/api/research")
     assert response.status_code == 200

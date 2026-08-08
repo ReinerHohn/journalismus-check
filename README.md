@@ -34,6 +34,10 @@ Polen – ist in
 dokumentiert. Der Abgleich dieser ÖRR-Rahmung mit der Bevölkerungshaltung laut
 repräsentativen Umfragen 2025 steht in
 [reports/oerr-vs-bevoelkerung-2026-08-08.md](reports/oerr-vs-bevoelkerung-2026-08-08.md).
+Die zugespitzte Beitragszahler-Perspektive – der ÖRR wird über den
+Rundfunkbeitrag von faktisch allen Haushalten zwangsfinanziert und ist zu
+Ausgewogenheit verpflichtet – steht in
+[reports/oerr-beitragszahler-abgleich-2026-08-08.md](reports/oerr-beitragszahler-abgleich-2026-08-08.md).
 Der Abgleich mit der lokalen amtlichen Datenablage `../gov-data` ist in
 [reports/gov-data-abgleich-2026-08-08.md](reports/gov-data-abgleich-2026-08-08.md)
 mit Nennern, Deliktbereinigung und Quellenkritik festgehalten.
